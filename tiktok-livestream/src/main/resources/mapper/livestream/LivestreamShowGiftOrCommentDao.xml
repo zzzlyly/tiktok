@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cdut.tiktok.livestream.dao.LivestreamShowGiftOrCommentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cdut.tiktok.livestream.entity.LivestreamShowGiftOrCommentEntity" id="livestreamShowGiftOrCommentMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="hostId" column="host_id"/>
+        <result property="livestreamId" column="livestream_id"/>
+        <result property="commentOrGift" column="comment_or_gift"/>
+        <result property="comment" column="comment"/>
+        <result property="giftId" column="gift_id"/>
+        <result property="giftNumber" column="gift_number"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cdut.tiktok.product.dao.ProductDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cdut.tiktok.product.entity.ProductEntity" id="productMap">
+        <result property="id" column="id"/>
+        <result property="productName" column="product_name"/>
+        <result property="description" column="description"/>
+        <result property="price" column="price"/>
+        <result property="category" column="category"/>
+        <result property="stockQuantity" column="stock_quantity"/>
+        <result property="enable" column="enable"/>
+        <result property="stockLocked" column="stock_locked"/>
+        <result property="isSevendays" column="is_sevendays"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+
+</mapper>

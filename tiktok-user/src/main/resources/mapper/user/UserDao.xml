@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cdut.tiktok.user.dao.UserDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cdut.tiktok.user.entity.UserEntity" id="userMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="followCount" column="follow_count"/>
+        <result property="followerCount" column="follower_count"/>
+        <result property="avatar" column="avatar"/>
+        <result property="backgroundImage" column="background_image"/>
+        <result property="signature" column="signature"/>
+        <result property="totalLiked" column="total_liked"/>
+        <result property="workCount" column="work_count"/>
+        <result property="favoriteCount" column="favorite_count"/>
+        <result property="password" column="password"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="iplocation" column="iplocation"/>
+        <result property="dateOfBirth" column="date_of_birth"/>
+        <result property="almaMater" column="alma_mater"/>
+        <result property="currentResidence" column="current_residence"/>
+        <result property="coins" column="coins"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>

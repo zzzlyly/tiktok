@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cdut.tiktok.video.dao.CommentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cdut.tiktok.video.entity.CommentEntity" id="commentMap">
+        <result property="id" column="id"/>
+        <result property="videoId" column="video_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="content" column="content"/>
+        <result property="location" column="location"/>
+        <result property="videoAuthorId" column="video_author_id"/>
+        <result property="subCommentId" column="sub_comment_id"/>
+        <result property="toUserId" column="to_user_id"/>
+        <result property="likesCount" column="likes_count"/>
+        <result property="isLikedByAuthor" column="is_liked_by_author"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>

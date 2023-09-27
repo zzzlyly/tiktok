@@ -16,6 +16,8 @@
         <module>tiktok-product</module>
         <module>tiktok-user</module>
         <module>tiktok-video</module>
+        <module>renren-generator-master</module>
+        <module>tiktok-common</module>
     </modules>
 
 </project>

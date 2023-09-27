@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cdut.tiktok.video.dao.WatchHistoryDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cdut.tiktok.video.entity.WatchHistoryEntity" id="watchHistoryMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="watchType" column="watch_type"/>
+        <result property="watchVideoOrLivestreamId" column="watch_video_or_livestream_id"/>
+        <result property="creatTime" column="creat_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+
+</mapper>
