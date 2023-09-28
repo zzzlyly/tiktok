@@ -4,7 +4,12 @@ spring:
     password: 123456
     url: jdbc:mysql://192.168.1.6:3306/tiktok-livestream
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  application:
+    name: tiktok-livestream
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml

@@ -18,6 +18,7 @@
         <module>tiktok-video</module>
         <module>renren-generator-master</module>
         <module>tiktok-common</module>
+        <module>tiktok-gateway</module>
     </modules>
 
 </project>

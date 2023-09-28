@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: tiktok-gateway
+  main:
+    web-application-type: reactive
+server:
+  port: 14000
