@@ -13,9 +13,14 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 server:
   port: 9000
 logging:
   level:
-    com.atguigu.gulimall: debug
+    com.baomidou.mybatisplus: DEBUG
+
+
+

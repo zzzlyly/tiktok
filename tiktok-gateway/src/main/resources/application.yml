@@ -1,11 +1,64 @@
 spring:
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
   application:
     name: tiktok-gateway
   main:
     web-application-type: reactive
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            #是否允许cookie跨域  true允许
+            allowCredentials: true
+            #允许跨域的url * 则允许全部
+            allowedOriginPatterns: '*'
+            # 允许跨域的方法 * 则全部
+            allowedMethods: '*'
+            # 跨域预检时间
+            maxAge: 180
+
+      routes:
+      - id: tiktok-livestream
+        uri: lb://tiktok-livestream
+        predicates:
+          - Path=/douyin/livestream/**
+        filters:
+          - RewritePath=/douyin/(?<segment>.*),/$\{segment}
+      - id: tiktok-order
+        uri: lb://tiktok-order
+        predicates:
+          - Path=/douyin/order/**
+        filters:
+          - RewritePath=/douyin/(?<segment>.*),/$\{segment}
+      - id: tiktok-product
+        uri: lb://tiktok-product
+        predicates:
+          - Path=/douyin/product/**
+        filters:
+          - RewritePath=/douyin/(?<segment>.*),/$\{segment}
+      - id: tiktok-user
+        uri: lb://tiktok-user
+        predicates:
+          - Path=/douyin/user/**
+        filters:
+          - RewritePath=/douyin/(?<segment>.*),/$\{segment}
+      - id: tiktok-video
+        uri: lb://tiktok-video
+        predicates:
+          - Path=/douyin/video/**
+        filters:
+          - RewritePath=/douyin/(?<segment>.*),/$\{segment}
+
+
+
+
+
 server:
-  port: 14000
+  port: 88
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

@@ -3,6 +3,7 @@ package com.cdut.tiktok.livestream.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.cdut.tiktok.common.utils.R;
 
 
 
+
 /**
  * 
  *
@@ -25,6 +27,7 @@ import com.cdut.tiktok.common.utils.R;
  * @email zhanglingyunn@foxmail.com
  * @date 2023-09-27 19:00:56
  */
+@Slf4j
 @RestController
 @RequestMapping("livestream/audienceinfo")
 public class AudienceinfoController {
@@ -38,7 +41,7 @@ public class AudienceinfoController {
     @RequiresPermissions("livestream:audienceinfo:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = audienceinfoService.queryPage(params);
-
+        log.info("转发成功");
         return R.ok().put("page", page);
     }
 
@@ -50,7 +53,6 @@ public class AudienceinfoController {
     @RequiresPermissions("livestream:audienceinfo:info")
     public R info(@PathVariable("id") Long id){
 		AudienceinfoEntity audienceinfo = audienceinfoService.getById(id);
-
         return R.ok().put("audienceinfo", audienceinfo);
     }
 
