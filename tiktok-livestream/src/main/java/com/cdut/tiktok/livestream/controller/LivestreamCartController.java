@@ -5,11 +5,7 @@ import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.livestream.entity.LivestreamCartEntity;
 import com.cdut.tiktok.livestream.service.LivestreamCartService;
@@ -34,7 +30,7 @@ public class LivestreamCartController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("livestream:livestreamcart:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = livestreamCartService.queryPage(params);
@@ -46,7 +42,7 @@ public class LivestreamCartController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("livestream:livestreamcart:info")
     public R info(@PathVariable("id") Long id){
 		LivestreamCartEntity livestreamCart = livestreamCartService.getById(id);
@@ -57,7 +53,7 @@ public class LivestreamCartController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping
     @RequiresPermissions("livestream:livestreamcart:save")
     public R save(@RequestBody LivestreamCartEntity livestreamCart){
 		livestreamCartService.save(livestreamCart);
@@ -68,7 +64,7 @@ public class LivestreamCartController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping
     @RequiresPermissions("livestream:livestreamcart:update")
     public R update(@RequestBody LivestreamCartEntity livestreamCart){
 		livestreamCartService.updateById(livestreamCart);
@@ -79,7 +75,7 @@ public class LivestreamCartController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping
     @RequiresPermissions("livestream:livestreamcart:delete")
     public R delete(@RequestBody Long[] ids){
 		livestreamCartService.removeByIds(Arrays.asList(ids));

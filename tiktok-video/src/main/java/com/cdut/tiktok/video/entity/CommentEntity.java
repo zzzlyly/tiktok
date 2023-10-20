@@ -1,6 +1,7 @@
 package com.cdut.tiktok.video.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -53,6 +54,14 @@ public class CommentEntity implements Serializable {
 	 */
 	private Long toUserId;
 	/**
+	 * 0代表主楼评论，1代表次楼评论，2代表对次楼的评论
+	 */
+	private Integer type;
+	/**
+	 * 被评论数量
+	 */
+	private Integer commentCount;
+	/**
 	 * 被点赞数量
 	 */
 	private Integer likesCount;
@@ -67,6 +76,7 @@ public class CommentEntity implements Serializable {
 	/**
 	 * 是否删除：0未删除、1已删除
 	 */
+	@TableLogic
 	private Integer isDeleted;
 	/**
 	 * 更新时间

@@ -5,11 +5,7 @@ import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.livestream.entity.GiftEntity;
 import com.cdut.tiktok.livestream.service.GiftService;
@@ -34,7 +30,7 @@ public class GiftController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("livestream:gift:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = giftService.queryPage(params);
@@ -46,7 +42,7 @@ public class GiftController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("livestream:gift:info")
     public R info(@PathVariable("id") Integer id){
 		GiftEntity gift = giftService.getById(id);
@@ -57,7 +53,7 @@ public class GiftController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PutMapping
     @RequiresPermissions("livestream:gift:save")
     public R save(@RequestBody GiftEntity gift){
 		giftService.save(gift);
@@ -68,7 +64,7 @@ public class GiftController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping
     @RequiresPermissions("livestream:gift:update")
     public R update(@RequestBody GiftEntity gift){
 		giftService.updateById(gift);
@@ -79,7 +75,7 @@ public class GiftController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     @RequiresPermissions("livestream:gift:delete")
     public R delete(@RequestBody Integer[] ids){
 		giftService.removeByIds(Arrays.asList(ids));

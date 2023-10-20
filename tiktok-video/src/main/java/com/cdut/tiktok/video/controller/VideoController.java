@@ -1,15 +1,14 @@
 package com.cdut.tiktok.video.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.cdut.tiktok.video.pojo.to.LikeActionTo;
+import com.cdut.tiktok.video.pojo.to.LikeListVideoTo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.video.entity.VideoEntity;
 import com.cdut.tiktok.video.service.VideoService;
@@ -34,7 +33,7 @@ public class VideoController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("video:video:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = videoService.queryPage(params);
@@ -46,7 +45,7 @@ public class VideoController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("video:video:info")
     public R info(@PathVariable("id") Long id){
 		VideoEntity video = videoService.getById(id);
@@ -57,7 +56,7 @@ public class VideoController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping
     @RequiresPermissions("video:video:save")
     public R save(@RequestBody VideoEntity video){
 		videoService.save(video);
@@ -68,7 +67,7 @@ public class VideoController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping
     @RequiresPermissions("video:video:update")
     public R update(@RequestBody VideoEntity video){
 		videoService.updateById(video);
@@ -79,7 +78,7 @@ public class VideoController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping
     @RequiresPermissions("video:video:delete")
     public R delete(@RequestBody Long[] ids){
 		videoService.removeByIds(Arrays.asList(ids));
@@ -87,4 +86,24 @@ public class VideoController {
         return R.ok();
     }
 
+    /**
+     * 远程调用，获取视频的作者id
+     * @param likeActionto
+     * @return
+     */
+    @PostMapping("/userid")
+    public Long getUserIdByVideoId(@RequestBody LikeActionTo likeActionto){
+
+        return videoService.getUserIdByVideoId(likeActionto);
+    };
+
+    /**
+     * 远程调用，用videoids_获取视频的信息
+     * @param videoIds
+     * @return
+     */
+    @PostMapping("/list/ids")
+    public List<LikeListVideoTo> getVideoListByVideoId(@RequestBody List<Long> videoIds){
+        return videoService.getVideoListByVideoIds(videoIds);
+    };
 }

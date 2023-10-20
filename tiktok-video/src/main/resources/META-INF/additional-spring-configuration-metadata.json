@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "snowflake.workerId",
+      "type": "java.lang.String",
+      "description": "Description for snowflake.workerId."
+    },
+    {
+      "name": "snowflake.dataCenterId",
+      "type": "java.lang.String",
+      "description": "Description for snowflake.dataCenterId."
+    }
+  ] }

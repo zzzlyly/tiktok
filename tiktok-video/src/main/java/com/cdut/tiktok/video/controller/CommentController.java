@@ -1,15 +1,15 @@
 package com.cdut.tiktok.video.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.cdut.tiktok.video.pojo.dto.AddCommentDto;
+import com.cdut.tiktok.video.pojo.dto.DeleteCommentDto;
+import com.cdut.tiktok.video.pojo.vo.GetCommentVO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.video.entity.CommentEntity;
 import com.cdut.tiktok.video.service.CommentService;
@@ -34,19 +34,18 @@ public class CommentController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping
     @RequiresPermissions("video:comment:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = commentService.queryPage(params);
-
-        return R.ok().put("page", page);
+        List<GetCommentVO> comment = commentService.getCommnet(params);
+        return R.ok().put("code",200).put("msg","success").put("comment_list", comment);
     }
 
 
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/{id}")
     @RequiresPermissions("video:comment:info")
     public R info(@PathVariable("id") Long id){
 		CommentEntity comment = commentService.getById(id);
@@ -57,20 +56,21 @@ public class CommentController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping
     @RequiresPermissions("video:comment:save")
-    public R save(@RequestBody CommentEntity comment){
-		commentService.save(comment);
+    public R save(@RequestBody AddCommentDto comment){
 
-        return R.ok();
+        commentService.saveComment(comment);
+        return R.ok().put("code",200);
     }
 
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping
     @RequiresPermissions("video:comment:update")
     public R update(@RequestBody CommentEntity comment){
+
 		commentService.updateById(comment);
 
         return R.ok();
@@ -79,12 +79,18 @@ public class CommentController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping
     @RequiresPermissions("video:comment:delete")
-    public R delete(@RequestBody Long[] ids){
-		commentService.removeByIds(Arrays.asList(ids));
-
+    public R delete(@RequestBody DeleteCommentDto deleteCommentDto){
+		commentService.removeByIds(Arrays.asList(deleteCommentDto.getIds()));
         return R.ok();
     }
 
+    /**
+     * 删除单个评论
+     */
+    @DeleteMapping("/{id}")
+    public R delete(@RequestParam Integer id){
+        return R.ok();
+    }
 }

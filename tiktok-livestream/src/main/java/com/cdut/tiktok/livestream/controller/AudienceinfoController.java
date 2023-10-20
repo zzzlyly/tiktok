@@ -6,11 +6,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.livestream.entity.AudienceinfoEntity;
 import com.cdut.tiktok.livestream.service.AudienceinfoService;
@@ -37,7 +33,7 @@ public class AudienceinfoController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("livestream:audienceinfo:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = audienceinfoService.queryPage(params);
@@ -49,7 +45,7 @@ public class AudienceinfoController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("livestream:audienceinfo:info")
     public R info(@PathVariable("id") Long id){
 		AudienceinfoEntity audienceinfo = audienceinfoService.getById(id);
@@ -59,7 +55,7 @@ public class AudienceinfoController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping
     @RequiresPermissions("livestream:audienceinfo:save")
     public R save(@RequestBody AudienceinfoEntity audienceinfo){
 		audienceinfoService.save(audienceinfo);
@@ -70,7 +66,7 @@ public class AudienceinfoController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping
     @RequiresPermissions("livestream:audienceinfo:update")
     public R update(@RequestBody AudienceinfoEntity audienceinfo){
 		audienceinfoService.updateById(audienceinfo);
@@ -81,7 +77,7 @@ public class AudienceinfoController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping
     @RequiresPermissions("livestream:audienceinfo:delete")
     public R delete(@RequestBody Long[] ids){
 		audienceinfoService.removeByIds(Arrays.asList(ids));

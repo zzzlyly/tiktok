@@ -54,11 +54,9 @@ spring:
 
 
 
-
-
 server:
   port: 88
 
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
+    com.cdut.tiktok: debug

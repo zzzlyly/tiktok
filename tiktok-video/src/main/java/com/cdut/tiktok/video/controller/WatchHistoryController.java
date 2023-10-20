@@ -5,11 +5,7 @@ import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.video.entity.WatchHistoryEntity;
 import com.cdut.tiktok.video.service.WatchHistoryService;
@@ -34,7 +30,7 @@ public class WatchHistoryController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("video:watchhistory:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = watchHistoryService.queryPage(params);
@@ -46,7 +42,7 @@ public class WatchHistoryController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("video:watchhistory:info")
     public R info(@PathVariable("id") Integer id){
 		WatchHistoryEntity watchHistory = watchHistoryService.getById(id);
@@ -57,7 +53,7 @@ public class WatchHistoryController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping
     @RequiresPermissions("video:watchhistory:save")
     public R save(@RequestBody WatchHistoryEntity watchHistory){
 		watchHistoryService.save(watchHistory);
@@ -68,7 +64,7 @@ public class WatchHistoryController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping
     @RequiresPermissions("video:watchhistory:update")
     public R update(@RequestBody WatchHistoryEntity watchHistory){
 		watchHistoryService.updateById(watchHistory);
@@ -79,7 +75,7 @@ public class WatchHistoryController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping
     @RequiresPermissions("video:watchhistory:delete")
     public R delete(@RequestBody Integer[] ids){
 		watchHistoryService.removeByIds(Arrays.asList(ids));

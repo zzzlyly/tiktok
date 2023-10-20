@@ -5,11 +5,7 @@ import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.livestream.entity.LivestreamEntity;
 import com.cdut.tiktok.livestream.service.LivestreamService;
@@ -34,7 +30,7 @@ public class LivestreamController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("livestream:livestream:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = livestreamService.queryPage(params);
@@ -46,7 +42,7 @@ public class LivestreamController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("livestream:livestream:info")
     public R info(@PathVariable("id") Long id){
 		LivestreamEntity livestream = livestreamService.getById(id);
@@ -57,7 +53,7 @@ public class LivestreamController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping
     @RequiresPermissions("livestream:livestream:save")
     public R save(@RequestBody LivestreamEntity livestream){
 		livestreamService.save(livestream);
@@ -68,7 +64,7 @@ public class LivestreamController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping
     @RequiresPermissions("livestream:livestream:update")
     public R update(@RequestBody LivestreamEntity livestream){
 		livestreamService.updateById(livestream);
@@ -79,7 +75,7 @@ public class LivestreamController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping
     @RequiresPermissions("livestream:livestream:delete")
     public R delete(@RequestBody Long[] ids){
 		livestreamService.removeByIds(Arrays.asList(ids));

@@ -51,7 +51,7 @@ public class UserEntity implements Serializable {
 	 */
 	private String signature;
 	/**
-	 * 总点赞数
+	 * 总获赞数
 	 */
 	private Integer totalLiked;
 	/**
@@ -67,7 +67,7 @@ public class UserEntity implements Serializable {
 	 */
 	private String password;
 	/**
-	 * 点赞数
+	 * 喜欢数
 	 */
 	private Integer likeCount;
 	/**

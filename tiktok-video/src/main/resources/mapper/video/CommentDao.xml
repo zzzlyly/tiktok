@@ -13,6 +13,7 @@
         <result property="videoAuthorId" column="video_author_id"/>
         <result property="subCommentId" column="sub_comment_id"/>
         <result property="toUserId" column="to_user_id"/>
+        <result property="type" column="type"/>
         <result property="likesCount" column="likes_count"/>
         <result property="isLikedByAuthor" column="is_liked_by_author"/>
         <result property="createTime" column="create_time"/>

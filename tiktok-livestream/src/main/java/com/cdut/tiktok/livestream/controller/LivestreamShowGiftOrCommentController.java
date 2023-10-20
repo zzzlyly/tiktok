@@ -5,11 +5,7 @@ import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.livestream.entity.LivestreamShowGiftOrCommentEntity;
 import com.cdut.tiktok.livestream.service.LivestreamShowGiftOrCommentService;
@@ -34,7 +30,7 @@ public class LivestreamShowGiftOrCommentController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("livestream:livestreamshowgiftorcomment:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = livestreamShowGiftOrCommentService.queryPage(params);
@@ -46,7 +42,7 @@ public class LivestreamShowGiftOrCommentController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("livestream:livestreamshowgiftorcomment:info")
     public R info(@PathVariable("id") Long id){
 		LivestreamShowGiftOrCommentEntity livestreamShowGiftOrComment = livestreamShowGiftOrCommentService.getById(id);
@@ -57,7 +53,7 @@ public class LivestreamShowGiftOrCommentController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping
     @RequiresPermissions("livestream:livestreamshowgiftorcomment:save")
     public R save(@RequestBody LivestreamShowGiftOrCommentEntity livestreamShowGiftOrComment){
 		livestreamShowGiftOrCommentService.save(livestreamShowGiftOrComment);
@@ -68,7 +64,7 @@ public class LivestreamShowGiftOrCommentController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping
     @RequiresPermissions("livestream:livestreamshowgiftorcomment:update")
     public R update(@RequestBody LivestreamShowGiftOrCommentEntity livestreamShowGiftOrComment){
 		livestreamShowGiftOrCommentService.updateById(livestreamShowGiftOrComment);
@@ -79,7 +75,7 @@ public class LivestreamShowGiftOrCommentController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping
     @RequiresPermissions("livestream:livestreamshowgiftorcomment:delete")
     public R delete(@RequestBody Long[] ids){
 		livestreamShowGiftOrCommentService.removeByIds(Arrays.asList(ids));

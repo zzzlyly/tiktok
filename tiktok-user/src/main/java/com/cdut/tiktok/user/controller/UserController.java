@@ -1,15 +1,15 @@
 package com.cdut.tiktok.user.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.cdut.tiktok.user.pojo.to.CommentUserInfoTO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.user.entity.UserEntity;
 import com.cdut.tiktok.user.service.UserService;
@@ -30,6 +30,23 @@ import com.cdut.tiktok.common.utils.R;
 public class UserController {
     @Autowired
     private UserService userService;
+
+
+    /**
+     *获取评论用户的信息
+     */
+    @PostMapping("/commmentuser")
+    public List<CommentUserInfoTO> getcommentUserInfoByIds(@RequestBody List<Long> userIds){
+        List<UserEntity> userEntities = userService.listByIds(userIds);
+        return userEntities.stream()
+                .map(userEntity -> {
+                    CommentUserInfoTO commentUserInfoTo = new CommentUserInfoTO();
+                    BeanUtils.copyProperties(userEntity, commentUserInfoTo);
+                    return commentUserInfoTo;
+                })
+                .collect(Collectors.toList());
+    }
+
 
     /**
      * 列表
