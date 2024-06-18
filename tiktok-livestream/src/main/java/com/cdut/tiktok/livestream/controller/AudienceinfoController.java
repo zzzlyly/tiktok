@@ -37,7 +37,6 @@ public class AudienceinfoController {
     @RequiresPermissions("livestream:audienceinfo:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = audienceinfoService.queryPage(params);
-        log.info("转发成功");
         return R.ok().put("page", page);
     }
 
@@ -70,17 +69,6 @@ public class AudienceinfoController {
     @RequiresPermissions("livestream:audienceinfo:update")
     public R update(@RequestBody AudienceinfoEntity audienceinfo){
 		audienceinfoService.updateById(audienceinfo);
-
-        return R.ok();
-    }
-
-    /**
-     * 删除
-     */
-    @DeleteMapping
-    @RequiresPermissions("livestream:audienceinfo:delete")
-    public R delete(@RequestBody Long[] ids){
-		audienceinfoService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

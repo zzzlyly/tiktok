@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -16,6 +18,7 @@ import lombok.Data;
  * @date 2023-09-27 19:28:53
  */
 @Data
+@Builder
 @TableName("video")
 public class VideoEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

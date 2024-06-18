@@ -1,6 +1,7 @@
 package com.cdut.tiktok.livestream.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.math.BigDecimal;
@@ -52,6 +53,7 @@ public class LivestreamCartEntity implements Serializable {
 	/**
 	 * 是否删除：0未删除、1已删除
 	 */
+	@TableLogic
 	private Integer isDeleted;
 
 }

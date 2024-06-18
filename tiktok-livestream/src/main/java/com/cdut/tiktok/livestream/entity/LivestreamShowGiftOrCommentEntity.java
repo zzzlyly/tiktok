@@ -1,11 +1,12 @@
 package com.cdut.tiktok.livestream.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import lombok.Data;
 
 /**
  * 
@@ -59,6 +60,7 @@ public class LivestreamShowGiftOrCommentEntity implements Serializable {
 	/**
 	 * 是否删除：0未删除、1已删除
 	 */
+	@TableLogic
 	private String isDeleted;
 
 }

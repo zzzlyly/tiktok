@@ -3,6 +3,8 @@ package com.cdut.tiktok.livestream.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.cdut.tiktok.common.annotation.UserId;
+import com.cdut.tiktok.common.utils.TokenService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,19 +26,13 @@ import com.cdut.tiktok.common.utils.R;
 @RestController
 @RequestMapping("livestream/livestream")
 public class LivestreamController {
+
+    @Autowired
+    private TokenService tokenService;
+
     @Autowired
     private LivestreamService livestreamService;
 
-    /**
-     * 列表
-     */
-    @GetMapping("/list")
-    @RequiresPermissions("livestream:livestream:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = livestreamService.queryPage(params);
-
-        return R.ok().put("page", page);
-    }
 
 
     /**
@@ -81,6 +77,41 @@ public class LivestreamController {
 		livestreamService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
+    }
+
+    @GetMapping("/getstreamkey")
+    public R getStreamKey(@UserId String userId){
+
+        //String userId = tokenService.getUserIdFromToken(token);
+
+        String key = livestreamService.getStreamKey(userId);
+
+        return R.ok().put("stream_key", key);
+    }
+
+    @PostMapping("/validate")
+    public R validateStream(@RequestParam("stream_key") String key) {
+        // 实现认证逻辑
+        // 检查 key 是否有效
+        String[] parts = key.split(",");
+        if (livestreamService.isValidKey(parts[1])) {
+            // 返回 HTTP 状态 200，允许推流
+            return R.ok();
+        } else {
+            // 返回 HTTP 状态 403，拒绝推流
+            return R.error();
+        }
+    }
+
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+    @RequiresPermissions("livestream:livestream:list")
+    public R list(@RequestParam Map<String, Object> params){
+        PageUtils page = livestreamService.queryPage(params);
+
+        return R.ok().put("page", page);
     }
 
 }

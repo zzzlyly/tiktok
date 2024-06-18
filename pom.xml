@@ -19,6 +19,7 @@
         <module>renren-generator-master</module>
         <module>tiktok-common</module>
         <module>tiktok-gateway</module>
+        <module>tiktok-auth-server</module>
     </modules>
 
 </project>

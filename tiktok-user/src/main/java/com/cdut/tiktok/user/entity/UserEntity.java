@@ -1,6 +1,7 @@
 package com.cdut.tiktok.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.math.BigDecimal;
@@ -31,9 +32,18 @@ public class UserEntity implements Serializable {
 	 */
 	private String name;
 	/**
+	 * 性别 0-未知 1-male,2-female
+	 */
+	private Integer gender;
+	/**
+	 * email
+	 */
+	private String email;
+	/**
 	 * 关注用户数量
 	 */
 	private Long followCount;
+
 	/**
 	 * 粉丝数量
 	 */
@@ -66,6 +76,7 @@ public class UserEntity implements Serializable {
 	 * 用户密码
 	 */
 	private String password;
+	private LocalDateTime lastPasswordResetTime;
 	/**
 	 * 喜欢数
 	 */
@@ -97,6 +108,7 @@ public class UserEntity implements Serializable {
 	/**
 	 * 是否删除：0未删除、1已删除
 	 */
+	@TableLogic
 	private Integer isDeleted;
 	/**
 	 * 更新时间

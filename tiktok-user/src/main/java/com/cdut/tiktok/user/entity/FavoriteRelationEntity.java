@@ -1,6 +1,7 @@
 package com.cdut.tiktok.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -39,6 +40,7 @@ public class FavoriteRelationEntity implements Serializable {
 	/**
 	 * 是否删除：0未删除、1已删除
 	 */
+	@TableLogic
 	private Long isDeleted;
 
 }

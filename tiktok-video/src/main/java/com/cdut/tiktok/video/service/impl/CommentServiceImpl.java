@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,6 +33,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
 
     @Autowired
     private UserFeignService userFeignService;
+    @Autowired
+    private CommentDao commentDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -103,9 +106,20 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
                     })
                     .collect(Collectors.toList());
         }
+        return Collections.emptyList();
+    }
 
-
-        return null;
+    @Override
+    public boolean removeById(Integer id) {
+        // 获取要删除的评论对象
+        CommentEntity comment = commentDao.selectById(id);
+        if (comment != null) {
+            // 修改评论内容为"评论已删除"
+            comment.setContent("评论已删除");
+            // 更新评论对象
+            return commentDao.updateById(comment) == 1;
+        }
+        return false;
     }
 
 

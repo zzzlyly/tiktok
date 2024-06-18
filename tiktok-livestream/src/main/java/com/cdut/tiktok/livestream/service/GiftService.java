@@ -3,7 +3,10 @@ package com.cdut.tiktok.livestream.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cdut.tiktok.common.utils.PageUtils;
 import com.cdut.tiktok.livestream.entity.GiftEntity;
+import com.cdut.tiktok.livestream.pojo.dto.SaveGiftDto;
+import com.cdut.tiktok.livestream.pojo.to.GiftEntityVo;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -16,5 +19,12 @@ import java.util.Map;
 public interface GiftService extends IService<GiftEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void savegiftDto(SaveGiftDto saveGiftDto);
+
+    BigDecimal getGiftPriceById(Long id);
+
+
+    GiftEntityVo getInfoById(String giftId);
 }
 

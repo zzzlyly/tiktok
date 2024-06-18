@@ -23,5 +23,8 @@ public interface CommentService extends IService<CommentEntity> {
     void saveComment(AddCommentDto comment);
 
     List<GetCommentVO> getCommnet(Map<String, Object> params);
+
+    boolean removeById(Integer id);
+
 }
 

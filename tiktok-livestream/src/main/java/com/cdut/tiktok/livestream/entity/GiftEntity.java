@@ -1,11 +1,14 @@
 package com.cdut.tiktok.livestream.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.math.BigDecimal;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -16,6 +19,7 @@ import lombok.Data;
  * @date 2023-09-27 19:00:56
  */
 @Data
+@Builder
 @TableName("gift")
 public class GiftEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +28,7 @@ public class GiftEntity implements Serializable {
 	 * 礼物表id
 	 */
 	@TableId
-	private Integer id;
+	private Long id;
 	/**
 	 * 礼物图片url
 	 */
@@ -40,6 +44,7 @@ public class GiftEntity implements Serializable {
 	/**
 	 * 是否删除：0未删除、1删除
 	 */
+	@TableLogic
 	private Integer isDeleted;
 	/**
 	 * 更新时间

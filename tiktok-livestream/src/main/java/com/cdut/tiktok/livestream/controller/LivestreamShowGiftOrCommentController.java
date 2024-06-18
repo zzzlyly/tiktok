@@ -1,8 +1,14 @@
 package com.cdut.tiktok.livestream.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.cdut.tiktok.common.annotation.UserId;
+import com.cdut.tiktok.common.utils.JwtUtils;
+import com.cdut.tiktok.livestream.pojo.dto.GetGiftOrCommentDto;
+import com.cdut.tiktok.livestream.pojo.dto.SendGiftOrCommentDto;
+import com.cdut.tiktok.livestream.pojo.vo.GetGiftOrCommentVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +33,9 @@ public class LivestreamShowGiftOrCommentController {
     @Autowired
     private LivestreamShowGiftOrCommentService livestreamShowGiftOrCommentService;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
     /**
      * 列表
      */
@@ -42,7 +51,7 @@ public class LivestreamShowGiftOrCommentController {
     /**
      * 信息
      */
-    @GetMapping("/info/{id}")
+    @GetMapping("/info/id")
     @RequiresPermissions("livestream:livestreamshowgiftorcomment:info")
     public R info(@PathVariable("id") Long id){
 		LivestreamShowGiftOrCommentEntity livestreamShowGiftOrComment = livestreamShowGiftOrCommentService.getById(id);
@@ -50,15 +59,13 @@ public class LivestreamShowGiftOrCommentController {
         return R.ok().put("livestreamShowGiftOrComment", livestreamShowGiftOrComment);
     }
 
-    /**
-     * 保存
-     */
-    @PostMapping
-    @RequiresPermissions("livestream:livestreamshowgiftorcomment:save")
-    public R save(@RequestBody LivestreamShowGiftOrCommentEntity livestreamShowGiftOrComment){
-		livestreamShowGiftOrCommentService.save(livestreamShowGiftOrComment);
+    @PostMapping("/send")
+    public R sendGiftOrComment(@RequestBody SendGiftOrCommentDto sendGiftOrCommentDto){
 
-        return R.ok();
+        Long userId = jwtUtils.getUserIdFromToken(sendGiftOrCommentDto.getToken());
+        sendGiftOrCommentDto.setUserId(userId);
+        livestreamShowGiftOrCommentService.sendGiftOrComment(sendGiftOrCommentDto);
+        return R.ok("送礼或者评论成功");
     }
 
     /**
@@ -81,6 +88,15 @@ public class LivestreamShowGiftOrCommentController {
 		livestreamShowGiftOrCommentService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
+    }
+
+    @PostMapping("/get")
+    public R getGiftOrComment(@RequestBody GetGiftOrCommentDto getGiftOrCommentDto){
+        Long userId = jwtUtils.getUserIdFromToken(getGiftOrCommentDto.getToken());
+        getGiftOrCommentDto.setUserId(userId);
+
+        List<GetGiftOrCommentVo> giftOrCommentVo = livestreamShowGiftOrCommentService.getGiftOrComment(getGiftOrCommentDto);
+        return R.ok().put("giftOrComment", giftOrCommentVo);
     }
 
 }

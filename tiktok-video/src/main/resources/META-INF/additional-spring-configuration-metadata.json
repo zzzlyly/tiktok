@@ -9,5 +9,10 @@
       "name": "snowflake.dataCenterId",
       "type": "java.lang.String",
       "description": "Description for snowflake.dataCenterId."
+    },
+    {
+      "name": "aliyun.oss.bucketName",
+      "type": "java.lang.String",
+      "description": "Description for aliyun.oss.bucketName."
     }
   ] }

@@ -50,7 +50,7 @@ public class CommentController {
     public R info(@PathVariable("id") Long id){
 		CommentEntity comment = commentService.getById(id);
 
-        return R.ok().put("comment", comment);
+        return R.ok().put("code", 200).put("msg", "success").put("comment", comment);
     }
 
     /**
@@ -61,7 +61,7 @@ public class CommentController {
     public R save(@RequestBody AddCommentDto comment){
 
         commentService.saveComment(comment);
-        return R.ok().put("code",200);
+        return R.ok().put("code", 200).put("msg", "success");
     }
 
     /**
@@ -72,7 +72,6 @@ public class CommentController {
     public R update(@RequestBody CommentEntity comment){
 
 		commentService.updateById(comment);
-
         return R.ok();
     }
 
@@ -83,14 +82,22 @@ public class CommentController {
     @RequiresPermissions("video:comment:delete")
     public R delete(@RequestBody DeleteCommentDto deleteCommentDto){
 		commentService.removeByIds(Arrays.asList(deleteCommentDto.getIds()));
-        return R.ok();
+        return R.ok().put("code", 200).put("msg", "success");
     }
 
     /**
      * 删除单个评论
      */
     @DeleteMapping("/{id}")
-    public R delete(@RequestParam Integer id){
-        return R.ok();
+    public R delete(@PathVariable Integer id){
+        boolean removed = commentService.removeById(id);
+        if (removed) {
+            return R.ok();
+        } else {
+            return R.error("删除失败");
+        }
     }
+
+
+
 }

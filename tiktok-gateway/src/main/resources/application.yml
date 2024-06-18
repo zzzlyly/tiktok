@@ -51,7 +51,12 @@ spring:
           - Path=/douyin/video/**
         filters:
           - RewritePath=/douyin/(?<segment>.*),/$\{segment}
-
+      - id: tiktok-auth-server
+        uri: lb://tiktok-auth-server
+        predicates:
+          - Path=/douyin/auth/**
+        filters:
+          - RewritePath=/douyin/(?<segment>.*),/$\{segment}
 
 
 server:

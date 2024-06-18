@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "tiktokauth.jwt.header",
+      "type": "java.lang.String",
+      "description": "Description for tiktokauth.jwt.header."
+  }
+] }

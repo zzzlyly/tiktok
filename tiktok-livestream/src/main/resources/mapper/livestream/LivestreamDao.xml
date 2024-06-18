@@ -7,6 +7,7 @@
     <resultMap type="com.cdut.tiktok.livestream.entity.LivestreamEntity" id="livestreamMap">
         <result property="id" column="id"/>
         <result property="videoUrl" column="video_url"/>
+        <result property="streamKey" column="stream_key"/>
         <result property="hostId" column="host_id"/>
         <result property="viewers" column="viewers"/>
         <result property="coverUrl" column="cover_url"/>

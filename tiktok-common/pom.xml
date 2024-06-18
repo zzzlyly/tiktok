@@ -51,6 +51,12 @@
             <version>1.2.60</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.12.3</version>  <!-- 确保版本与您的Jackson核心库版本兼容 -->
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>5.2.5.RELEASE</version>
@@ -83,12 +89,78 @@
             <version>1.4.0.RELEASE</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+
+
         <!--客户端负载均衡loadbalancer-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
             <version>3.1.7</version>
         </dependency>
+
+<!--        redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.7.14</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>spring-boot-starter-cache</artifactId>
+            <version>3.0.8</version>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>2.6.15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+            <version>2.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- JJWT Implementation -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.3</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- JJWT Jackson Serializer/Derserializer -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.3</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>2.7.14</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.6</version>
+        </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>
@@ -107,6 +179,15 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 

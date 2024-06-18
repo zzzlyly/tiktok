@@ -1,8 +1,10 @@
 package com.cdut.tiktok.video.service;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cdut.tiktok.common.utils.PageUtils;
 import com.cdut.tiktok.video.entity.VideoEntity;
+import com.cdut.tiktok.video.pojo.dto.UploadVideoDto;
 import com.cdut.tiktok.video.pojo.to.LikeActionTo;
 import com.cdut.tiktok.video.pojo.to.LikeListVideoTo;
 
@@ -23,5 +25,7 @@ public interface VideoService extends IService<VideoEntity> {
     Long getUserIdByVideoId(LikeActionTo likeActionto);
 
     List<LikeListVideoTo> getVideoListByVideoIds(List<Long> videoIds);
+
+    void uploadVideo(UploadVideoDto uploadVideoDto) throws ClientException;
 }
 

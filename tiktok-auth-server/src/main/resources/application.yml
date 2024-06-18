@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.1.3:3306/tiktok-user
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: tiktok-auth-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  mail:
+    email: zhanglingy1012@163.com
+    # 163邮箱的地址为smtp.163.com，直接填写即可
+    host: smtp.163.com
+    port: 465
+    # 你申请的163邮箱
+    username: zhanglingy1012@163.com
+    # 注意密码是在开启smtp/pop3时自动生成的，不是邮箱密码，记得保存一下，不然就找不到了
+    password: TGLVVWEFNWHGPZSA
+
+  redis:
+    host: 192.168.1.3
+    port: 6379
+server:
+  port: 20000
+
+tiktokauth:
+  jwt:
+    header: Authorization
+    expire: 604800 # 7天，s为单位
+    secret: mimamimatiktokmimamima

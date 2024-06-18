@@ -1,20 +1,34 @@
 package com.cdut.tiktok.video.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.aliyuncs.exceptions.ClientException;
+import com.cdut.tiktok.common.annotation.UserId;
+import com.cdut.tiktok.common.exception.ExceptionCode;
+import com.cdut.tiktok.common.exception.MyException;
+import com.cdut.tiktok.common.utils.JwtUtils;
+import com.cdut.tiktok.video.pojo.dto.UploadVideoDto;
 import com.cdut.tiktok.video.pojo.to.LikeActionTo;
 import com.cdut.tiktok.video.pojo.to.LikeListVideoTo;
+import io.jsonwebtoken.Claims;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.cdut.tiktok.video.entity.VideoEntity;
 import com.cdut.tiktok.video.service.VideoService;
 import com.cdut.tiktok.common.utils.PageUtils;
 import com.cdut.tiktok.common.utils.R;
-
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -25,8 +39,10 @@ import com.cdut.tiktok.common.utils.R;
  * @date 2023-09-27 19:28:53
  */
 @RestController
+@ControllerAdvice
 @RequestMapping("video/video")
 public class VideoController {
+
     @Autowired
     private VideoService videoService;
 
@@ -106,4 +122,28 @@ public class VideoController {
     public List<LikeListVideoTo> getVideoListByVideoId(@RequestBody List<Long> videoIds){
         return videoService.getVideoListByVideoIds(videoIds);
     };
+
+
+
+
+
+    @PostMapping("/upload")
+    public R uploadVideo(@RequestParam("video") MultipartFile video, @RequestParam("video_cover") MultipartFile videoImage, @UserId  String userId,
+                         @RequestParam("video_title") String videoTitle, @RequestParam("video_format") String videoFormat, @RequestParam("video_cover_format") String videoCoverFormat) throws ClientException {
+
+        UploadVideoDto uploadVideoDto = UploadVideoDto.builder()
+                .video(video)
+                .videoImage(videoImage)
+                .videoTitle(videoTitle)
+                .videoFormat(videoFormat)
+                .videoCoverFormat(videoCoverFormat)
+                .authorId(userId)
+                .build();
+
+        // 尝试上传视频
+        videoService.uploadVideo(uploadVideoDto);
+        return R.ok("上传成功");
+    }
 }
+
+

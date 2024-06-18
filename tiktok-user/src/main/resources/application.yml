@@ -2,17 +2,20 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://192.168.1.6:3306/tiktok-user
+    url: jdbc:mysql://192.168.1.3:3306/tiktok-user
     driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: tiktok-user
+  redis:
+    host: 192.168.1.3
+    port: 6379
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-
-
-
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:

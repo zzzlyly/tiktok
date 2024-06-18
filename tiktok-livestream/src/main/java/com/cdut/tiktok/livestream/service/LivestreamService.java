@@ -16,5 +16,11 @@ import java.util.Map;
 public interface LivestreamService extends IService<LivestreamEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    String getStreamKey(String userId);
+
+    boolean isValidKey(String key);
+
+
 }
 

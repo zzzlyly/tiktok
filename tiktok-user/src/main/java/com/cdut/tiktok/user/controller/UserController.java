@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.cdut.tiktok.user.pojo.dto.LoginUserDto;
+import com.cdut.tiktok.user.pojo.dto.RegisterDto;
 import com.cdut.tiktok.user.pojo.to.CommentUserInfoTO;
+import com.cdut.tiktok.user.pojo.to.LiveGetUserEntityTo;
+import com.cdut.tiktok.user.pojo.vo.AuthCaptchaVo;
+import com.cdut.tiktok.user.pojo.vo.UserEntityVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +53,8 @@ public class UserController {
     }
 
 
+
+
     /**
      * 列表
      */
@@ -63,13 +70,12 @@ public class UserController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
-    @RequiresPermissions("user:user:info")
-    public R info(@PathVariable("id") Long id){
+    @GetMapping("/info/id")
+    public R info(@RequestParam("id") String id){
 		UserEntity user = userService.getById(id);
-
         return R.ok().put("user", user);
     }
+
 
     /**
      * 保存
@@ -104,4 +110,45 @@ public class UserController {
         return R.ok();
     }
 
+    @PostMapping("/register")
+    public R register(@RequestBody RegisterDto user) {
+        boolean result = userService.registerUser(user);
+        if (result){
+            return R.ok();
+        }
+        else{
+            return R.error("User registration failed");
+        }
+
+    }
+
+    @PostMapping("/login")
+    public R register(@RequestBody LoginUserDto user) {
+        String token = userService.login(user);
+        if (token !=null){
+            return R.ok().put("token",token);
+        }
+        else {
+            return R.error("User login failed");
+        }
+    }
+
+    /**
+     * 获取谷歌验证码
+     * @param
+     */
+    @GetMapping("/captcha")
+    public R getCaptcha(){
+        AuthCaptchaVo authCaptchaVo = userService.getCaptcha();
+        return R.ok().put("key",authCaptchaVo.getKey()).put("captcha",authCaptchaVo.getCaptcherImg());
+    }
+
+    @PostMapping("/info")
+    public R getUserInfo(@RequestBody LiveGetUserEntityTo liveGetUserEntityTo) {
+
+        UserEntityVo userEntity = userService.getUserForLive(liveGetUserEntityTo);
+
+        return R.ok().put("user",userEntity);
+
+    }
 }
